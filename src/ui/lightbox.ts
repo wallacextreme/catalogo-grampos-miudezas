@@ -4,6 +4,7 @@
  */
 
 import { icons } from './icons';
+import { resolveAssetUrl } from '../media/asset-url';
 
 export class Lightbox {
   private container: HTMLElement;
@@ -147,7 +148,7 @@ export class Lightbox {
   }
 
   private updateImage() {
-    this.imgElement.src = this.images[this.currentIndex];
+    this.imgElement.src = resolveAssetUrl(this.images[this.currentIndex]);
     const counterEl = this.container.querySelector('#lb-counter')!;
     counterEl.textContent = `${this.currentIndex + 1} / ${this.images.length}`;
 

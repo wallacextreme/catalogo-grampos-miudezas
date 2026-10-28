@@ -8,6 +8,7 @@ import { Product } from '../types';
 import { icons } from './icons';
 import { convertBlobToWebP, createThumbnailWebP } from '../media/webp-converter';
 import { saveProduct, deleteProduct, saveCustomImage } from '../db/indexeddb';
+import { resolveAssetUrl, PLACEHOLDER_IMAGE } from '../media/asset-url';
 
 export class ProductFormModal {
   private container: HTMLElement;
@@ -290,7 +291,7 @@ export class ProductFormModal {
       const thumb = document.createElement('div');
       thumb.className = 'relative w-16 h-16 rounded-xl border border-slate-300 dark:border-slate-600 overflow-hidden bg-white shadow-sm group';
       thumb.innerHTML = `
-        <img src="${imgUrl}" class="w-full h-full object-contain p-1" />
+        <img src="${resolveAssetUrl(imgUrl)}" class="w-full h-full object-contain p-1" />
         <button type="button" class="btn-remove-thumb absolute top-0.5 right-0.5 p-1 bg-red-600 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity" data-idx="${idx}" title="Remover Foto">
           ${icons.close('w-3 h-3')}
         </button>
@@ -376,7 +377,7 @@ export class ProductFormModal {
     const carmakers = rawCarmakers ? rawCarmakers.split(',').map((s) => s.trim()).filter(Boolean) : ['Universal'];
     const price = priceVal ? parseFloat(priceVal) : null;
 
-    let thumb = this.currentImages[0] || '/catalog-images/placeholder.webp';
+    let thumb = this.currentImages[0] || PLACEHOLDER_IMAGE;
     if (this.currentImages[0] && this.currentImages[0].startsWith('data:')) {
       // Se for imagem nova criada client-side, gerar miniatura otimizada
       try {

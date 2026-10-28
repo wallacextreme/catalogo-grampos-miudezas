@@ -392,11 +392,11 @@ def extract_catalogs():
                                     webp_filename = f"{item_id}{suffix}.webp".lower()
                                     webp_out_path = os.path.join(OUTPUT_IMG_DIR, webp_filename)
                                     conv_res = convert_image_bytes(raw_img_bytes, webp_out_path)
-                                    processed_images.append(f"/catalog-images/miudezas/{webp_filename}")
+                                    processed_images.append(f"./catalog-images/miudezas/{webp_filename}")
                                     stats['totalImages'] += 1
                                     stats['byDoc'][doc_name]['images'] += 1
 
-                            primary_thumb = processed_images[0] if processed_images else "/catalog-images/placeholder.webp"
+                            primary_thumb = processed_images[0] if processed_images else "./catalog-images/placeholder.webp"
 
                             product_record = {
                                 'id': item_id,

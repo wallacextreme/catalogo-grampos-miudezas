@@ -6,7 +6,7 @@
  * - Imagens não encontradas: Fallback suave para placeholder.webp
  */
 
-const CACHE_NAME = 'balcao-miudezas-v2';
+const CACHE_NAME = 'balcao-miudezas-v3';
 
 const STATIC_PRECACHE = [
   './',
@@ -43,8 +43,10 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(event.request.url);
 
-  // 1. Navegação (HTML principal): Network-First com Cache Fallback
-  if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+  // 1. Navegação (HTML principal) e Seed JSON: Network-First com Cache Fallback
+  //    (o seed não tem hash no nome, então precisa buscar a versão mais nova quando online)
+  const isSeed = url.pathname.endsWith('/catalog-master-seed.json');
+  if (isSeed || event.request.mode === 'navigate' || event.request.destination === 'document') {
     event.respondWith(
       fetch(event.request)
         .then((networkResponse) => {
@@ -57,7 +59,8 @@ self.addEventListener('fetch', (event) => {
         .catch(async () => {
           const cached = await caches.match(event.request);
           if (cached) return cached;
-          return caches.match('./index.html') || caches.match('./');
+          if (isSeed) return Response.error();
+          return (await caches.match('./index.html')) || caches.match('./');
         })
     );
     return;

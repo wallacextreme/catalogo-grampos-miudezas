@@ -7,6 +7,7 @@
 import { BoxSummary } from '../types';
 import { icons } from './icons';
 import { getBoxesSummary } from '../db/indexeddb';
+import { resolveAssetUrl } from '../media/asset-url';
 
 export class BoxMapModal {
   private container: HTMLElement;
@@ -128,7 +129,7 @@ export class BoxMapModal {
         </div>
 
         <div class="w-16 h-16 my-2 flex items-center justify-center overflow-hidden rounded-xl bg-white p-1">
-          <img src="${box.sampleThumbnail}" alt="Caixa ${box.boxNumber}" class="max-w-full max-h-full object-contain filter drop-shadow-sm" loading="lazy" />
+          <img src="${resolveAssetUrl(box.sampleThumbnail)}" alt="Caixa ${box.boxNumber}" class="max-w-full max-h-full object-contain filter drop-shadow-sm" loading="lazy" />
         </div>
 
         <div class="w-full text-center">

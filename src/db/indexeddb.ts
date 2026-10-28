@@ -6,6 +6,7 @@
 
 import { Product, BoxSummary } from '../types';
 import { computeSHA256 } from '../media/webp-converter';
+import { normalizeProductImages, PLACEHOLDER_IMAGE } from '../media/asset-url';
 
 const DB_NAME = 'BalcaoMiudezasDB';
 const DB_VERSION = 1;
@@ -67,11 +68,16 @@ export async function syncStaticCatalogUpdates(seedProducts: Product[]): Promise
 
       const finalProducts: Product[] = [];
 
-      for (const seedItem of seedProducts) {
-        const existing = existingMap.get(seedItem.id);
+      for (const rawSeedItem of seedProducts) {
+        // Caminhos relativos para funcionar em subdiretório (GitHub Pages)
+        const seedItem = normalizeProductImages(rawSeedItem);
+        const rawExisting = existingMap.get(seedItem.id);
+        const existing = rawExisting ? normalizeProductImages(rawExisting) : undefined;
         if (existing) {
           if (existing.userEdited || existing.isCustom) {
             // Preservar 100% das edições manuais do balconista
+            // (apenas corrige caminhos de imagem antigos, se necessário)
+            if (existing !== rawExisting) store.put(existing);
             finalProducts.push(existing);
           } else {
             // Item original não editado: pode atualizar com campos do seed
@@ -87,7 +93,9 @@ export async function syncStaticCatalogUpdates(seedProducts: Product[]): Promise
       }
 
       // Manter quaisquer itens customizados adicionados manualmente na loja
-      for (const customItem of existingMap.values()) {
+      for (const rawCustomItem of existingMap.values()) {
+        const customItem = normalizeProductImages(rawCustomItem);
+        if (customItem !== rawCustomItem) store.put(customItem);
         finalProducts.push(customItem);
       }
 
@@ -105,7 +113,7 @@ export async function getAllProducts(): Promise<Product[]> {
     const tx = db.transaction(STORE_PRODUCTS, 'readonly');
     const store = tx.objectStore(STORE_PRODUCTS);
     const req = store.getAll();
-    req.onsuccess = () => resolve(req.result || []);
+    req.onsuccess = () => resolve((req.result || []).map((p: Product) => normalizeProductImages(p)));
     req.onerror = () => reject(req.error);
   });
 }
@@ -158,7 +166,7 @@ export async function getBoxesSummary(): Promise<BoxSummary[]> {
       boxMap.set(box, {
         items: [],
         categories: new Set(),
-        thumb: p.thumbnail || p.images[0] || '/catalog-images/placeholder.webp'
+        thumb: p.thumbnail || p.images[0] || PLACEHOLDER_IMAGE
       });
     }
     const entry = boxMap.get(box)!;

@@ -5,6 +5,7 @@
 
 import { Product } from '../types';
 import { icons } from './icons';
+import { resolveAssetUrl, PLACEHOLDER_IMAGE } from '../media/asset-url';
 
 export function renderCounterCard(
   product: Product,
@@ -18,7 +19,7 @@ export function renderCounterCard(
 
   const boxDisplay = product.boxNumber || 'S/N';
   const internalCodeDisplay = product.internalCode ? `MU: ${product.internalCode}` : '';
-  const primaryThumb = product.thumbnail || (product.images && product.images[0]) || '/catalog-images/placeholder.webp';
+  const primaryThumb = resolveAssetUrl(product.thumbnail || (product.images && product.images[0])) || PLACEHOLDER_IMAGE;
   const hasImages = product.images && product.images.length > 0;
   const imageCount = product.images ? product.images.length : 0;
 
@@ -172,7 +173,7 @@ export function renderMuralCard(
   card.className = 'group relative flex flex-col bg-white dark:bg-slate-800 rounded-2xl border-2 border-slate-200 dark:border-slate-700 hover:border-amber-500 shadow-sm hover:shadow-2xl transition-all duration-200 overflow-hidden cursor-pointer';
 
   const boxDisplay = product.boxNumber || 'S/N';
-  const primaryThumb = product.thumbnail || (product.images && product.images[0]) || '/catalog-images/placeholder.webp';
+  const primaryThumb = resolveAssetUrl(product.thumbnail || (product.images && product.images[0])) || PLACEHOLDER_IMAGE;
   const hasImages = product.images && product.images.length > 0;
 
   card.innerHTML = `
