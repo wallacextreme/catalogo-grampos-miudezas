@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo de Balcão — Grampos e Miudezas</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#1e40af" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Balcão Miudezas" />
+    <meta name="application-name" content="Catálogo de Balcão" />
+    <meta name="description" content="Localizador Visual de Caixas, Códigos Internos e Miudezas Automotivas" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="./assets/index-wpIv-gAK.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BEX8DHVr.css">
+  </head>
+  <body class="daylight-counter-mode flex flex-col min-h-screen">
+    <!-- Topo / Navbar de Balcão -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b-2 border-slate-200 dark:border-slate-800 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
+        <!-- Logo e Título -->
+        <div class="flex items-center justify-between w-full md:w-auto">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-md">
+              <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-slate-100 uppercase">
+                Catálogo de Balcão
+              </h1>
+              <span class="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400">
+                LOCALIZADOR DE CAIXAS & MIUDEZAS
+              </span>
+            </div>
+          </div>
+
+          <!-- Ações Mobile -->
+          <div class="flex items-center gap-1 md:hidden">
+            <button id="btn-install-pwa-mobile" class="hidden p-2 rounded-xl text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40" aria-label="Instalar Aplicativo" title="Instalar Aplicativo de Balcão (PWA)">
+              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </button>
+            <button id="btn-theme-mobile" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Alternar Tema">
+              <span id="theme-icon-mobile"></span>
+            </button>
+            <button id="btn-new-item-mobile" class="p-2 rounded-xl bg-blue-600 text-white" aria-label="Nova Peça">
+              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Barra de Busca Omnibox Central -->
+        <div class="w-full md:max-w-xl relative">
+          <div class="relative flex items-center">
+            <input type="text" id="omnibox-search" autocomplete="off" spellcheck="false"
+              placeholder="Digite o Nº da Caixa (ex: 940, 10309), Código (MU392, P-185) ou Peça..."
+              class="w-full pl-11 pr-24 py-2.5 rounded-2xl border-2 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:border-blue-600 dark:focus:border-blue-500 font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-inner focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all" />
+            <span class="absolute left-3.5 text-slate-400 dark:text-slate-500 pointer-events-none">
+              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <div class="absolute right-2 flex items-center gap-1">
+              <button id="btn-clear-search" class="p-1 text-slate-400 hover:text-slate-600 rounded-lg hidden" aria-label="Limpar Busca">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+              <kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono font-bold bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 rounded border border-slate-300 dark:border-slate-600">
+                /
+              </kbd>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botões de Ação no Topo -->
+        <div class="hidden md:flex items-center gap-2">
+          <!-- Instalar PWA -->
+          <button id="btn-install-pwa" class="hidden inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-emerald-500/50 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/40 shadow-sm transition-colors" title="Instalar Aplicativo de Balcão (PWA)">
+            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Instalar App</span>
+          </button>
+
+          <!-- Alternador de Modo Mural Visual -->
+          <button id="btn-toggle-view" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-blue-600 shadow-sm transition-colors" title="Alternar entre Grade Detalhada e Mural Visual (Fotos Grandes)">
+            <span id="view-mode-icon"></span>
+            <span id="view-mode-text">Mural Visual</span>
+          </button>
+
+          <!-- Toggle Ocultar/Mostrar Preços -->
+          <button id="btn-toggle-prices" class="p-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-blue-600 shadow-sm transition-colors" title="Ocultar / Mostrar Preços de Venda" aria-label="Preços">
+            <span id="prices-icon"></span>
+          </button>
+
+          <!-- Mapa de Caixas -->
+          <button id="btn-box-map" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-blue-600 shadow-sm transition-colors" title="Visualizar Mapa de Caixas">
+            <svg class="w-4 h-4 text-amber-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            <span>Caixas</span>
+          </button>
+
+          <!-- Backup / Restore -->
+          <button id="btn-backup" class="p-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-blue-600 shadow-sm transition-colors" title="Backup / Restaurar Dados" aria-label="Backup">
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </button>
+
+          <!-- Alternar Tema -->
+          <button id="btn-toggle-theme" class="p-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-blue-600 shadow-sm transition-colors" title="Alternar Dark Mode / Daylight Counter Mode" aria-label="Tema">
+            <span id="theme-icon"></span>
+          </button>
+
+          <!-- Nova Peça -->
+          <button id="btn-new-item" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shadow-md transition-colors">
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>+ Nova Peça</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Barra de Filtros Rápidos de 1 Clique -->
+    <div id="filters-bar" class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-2.5">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <!-- Filtros em Linha -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Categoria -->
+          <select id="filter-category" class="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="all">Todas as Seções (15 Categorias)</option>
+          </select>
+
+          <!-- Montadora -->
+          <select id="filter-carmaker" class="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="all">Todas as Montadoras</option>
+            <option value="VW">VW</option>
+            <option value="GM">GM</option>
+            <option value="Fiat">Fiat</option>
+            <option value="Ford">Ford</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Honda">Honda</option>
+            <option value="Renault">Renault</option>
+            <option value="Peugeot/Citroën">Peugeot / Citroën</option>
+            <option value="Hyundai">Hyundai</option>
+            <option value="Nissan">Nissan</option>
+            <option value="Mitsubishi">Mitsubishi</option>
+            <option value="Universal">Universal</option>
+          </select>
+
+          <!-- Status Visual -->
+          <select id="filter-status" class="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="all">Todos os Status</option>
+            <option value="with-photo">Com Foto</option>
+            <option value="without-photo">Sem Foto (Fotografar)</option>
+            <option value="needs-review">Foto + Caixa (Pendente Descrição)</option>
+          </select>
+        </div>
+
+        <!-- Estatísticas da Busca Instantânea -->
+        <div class="flex items-center gap-2 font-mono text-xs text-slate-500 dark:text-slate-400">
+          <span id="results-count" class="font-bold text-slate-800 dark:text-slate-200">0 itens</span>
+          <span>•</span>
+          <span id="search-latency" class="text-emerald-600 dark:text-emerald-400 font-bold">0ms</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Área Principal de Produtos -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6">
+      <!-- Grade de Cards -->
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <!-- Injetado dinamicamente -->
+      </div>
+
+      <!-- Estado Vazio -->
+      <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center">
+        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-400 mb-3">
+          <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+        <h3 class="text-base font-bold text-slate-700 dark:text-slate-300">Nenhuma peça encontrada</h3>
+        <p class="text-xs text-slate-400 max-w-xs mt-1">Verifique o número da caixa, código ou limpe os filtros para visualizar todo o estoque.</p>
+        <button id="btn-clear-filters" class="mt-4 px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-colors">
+          Limpar Filtros de Busca
+        </button>
+      </div>
+    </main>
+
+    <!-- Toast de Notificação -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-200 pointer-events-none">
+      <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-900 text-white text-xs font-bold shadow-2xl border border-slate-700">
+        <span id="toast-icon"></span>
+        <span id="toast-message"></span>
+      </div>
+    </div>
+
+  </body>
+</html>
