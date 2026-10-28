@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo de Balcão — Grampos e Miudezas</title>
     <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="icon" type="image/webp" href="./catalog-images/placeholder.webp" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
     <meta name="theme-color" content="#1e40af" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Balcão Miudezas" />
+    <meta name="application-name" content="Catálogo de Balcão" />
     <meta name="description" content="Localizador Visual de Caixas, Códigos Internos e Miudezas Automotivas" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,6 +44,9 @@
 
           <!-- Ações Mobile -->
           <div class="flex items-center gap-1 md:hidden">
+            <button id="btn-install-pwa-mobile" class="hidden p-2 rounded-xl text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40" aria-label="Instalar Aplicativo" title="Instalar Aplicativo de Balcão (PWA)">
+              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </button>
             <button id="btn-theme-mobile" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Alternar Tema">
               <span id="theme-icon-mobile"></span>
             </button>
@@ -70,6 +78,12 @@
 
         <!-- Botões de Ação no Topo -->
         <div class="hidden md:flex items-center gap-2">
+          <!-- Instalar PWA -->
+          <button id="btn-install-pwa" class="hidden inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-emerald-500/50 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/40 shadow-sm transition-colors" title="Instalar Aplicativo de Balcão (PWA)">
+            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Instalar App</span>
+          </button>
+
           <!-- Alternador de Modo Mural Visual -->
           <button id="btn-toggle-view" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-blue-600 shadow-sm transition-colors" title="Alternar entre Grade Detalhada e Mural Visual (Fotos Grandes)">
             <span id="view-mode-icon"></span>

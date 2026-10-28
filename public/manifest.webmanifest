@@ -1,21 +1,49 @@
 {
-  "name": "Catálogo de Balcão - Grampos e Miudezas",
+  "id": "catalogo-grampos-miudezas",
+  "name": "Catálogo de Balcão — Grampos e Miudezas",
   "short_name": "Balcão Miudezas",
   "description": "Localizador Visual de Caixas, Códigos Internos e Miudezas Automotivas",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#0f172a",
   "theme_color": "#1e40af",
+  "lang": "pt-BR",
+  "categories": ["business", "utilities", "productivity"],
   "icons": [
     {
-      "src": "./catalog-images/placeholder.webp",
+      "src": "./icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/webp"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "./catalog-images/placeholder.webp",
+      "src": "./icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/webp"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mapa de Caixas",
+      "short_name": "Caixas",
+      "description": "Visualizar organização de caixas organizadoras",
+      "url": "./?action=box-map",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

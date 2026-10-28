@@ -25,6 +25,7 @@ class BalcaoApp {
   private lightbox: Lightbox;
   private productModal: ProductFormModal | null = null;
   private boxMapModal: BoxMapModal;
+  private deferredInstallPrompt: any = null;
 
   private state: FilterState = {
     query: '',
@@ -46,7 +47,7 @@ class BalcaoApp {
   public async init() {
     this.initTheme();
     this.bindDOMEvents();
-    this.registerServiceWorker();
+    this.setupPWA();
 
     try {
       // 1. Carregar seed estático dos .docx extraídos
@@ -429,12 +430,68 @@ class BalcaoApp {
     }, 2800);
   }
 
-  private registerServiceWorker() {
+  private setupPWA() {
+    // 1. Registro do Service Worker com detecção de updates
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
-      navigator.serviceWorker.register('./sw.js').catch((err) => {
-        console.warn('SW registration failed:', err);
+      navigator.serviceWorker.register('./sw.js').then((reg) => {
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                this.showToast('Nova versão disponível! Recarregue para atualizar.', icons.refreshCw('w-4 h-4 text-blue-400'));
+              }
+            });
+          }
+        });
+      }).catch((err) => {
+        console.warn('Falha ao registrar Service Worker:', err);
       });
     }
+
+    // 2. Manipulação do evento de instalação do PWA (Desktop & Mobile)
+    const btnInstall = document.getElementById('btn-install-pwa');
+    const btnInstallMobile = document.getElementById('btn-install-pwa-mobile');
+
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+
+    if (isStandalone) {
+      btnInstall?.classList.add('hidden');
+      btnInstallMobile?.classList.add('hidden');
+      return;
+    }
+
+    window.addEventListener('beforeinstallprompt', (e: Event) => {
+      e.preventDefault();
+      this.deferredInstallPrompt = e;
+
+      // Exibir botões de instalação
+      btnInstall?.classList.remove('hidden');
+      btnInstallMobile?.classList.remove('hidden');
+    });
+
+    const triggerInstall = async () => {
+      if (!this.deferredInstallPrompt) return;
+      this.deferredInstallPrompt.prompt();
+      const choiceResult = await this.deferredInstallPrompt.userChoice;
+      if (choiceResult.outcome === 'accepted') {
+        this.showToast('Instalação iniciada!', icons.check('w-4 h-4 text-emerald-400'));
+      }
+      this.deferredInstallPrompt = null;
+      btnInstall?.classList.add('hidden');
+      btnInstallMobile?.classList.add('hidden');
+    };
+
+    btnInstall?.addEventListener('click', triggerInstall);
+    btnInstallMobile?.addEventListener('click', triggerInstall);
+
+    window.addEventListener('appinstalled', () => {
+      this.showToast('Aplicativo de Balcão instalado com sucesso!', icons.check('w-4 h-4 text-emerald-400'));
+      btnInstall?.classList.add('hidden');
+      btnInstallMobile?.classList.add('hidden');
+      this.deferredInstallPrompt = null;
+    });
   }
 }
 
