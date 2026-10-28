@@ -3,7 +3,7 @@
  * Executa o build da aplicação e envia a pasta dist/ para a branch gh-pages.
  */
 
-import { existsSync, writeFileSync, copyFileSync } from 'fs';
+import { existsSync, writeFileSync, copyFileSync, rmSync } from 'fs';
 import { resolve } from 'path';
 
 const distDir = resolve(process.cwd(), 'dist');
@@ -43,6 +43,6 @@ try {
 } finally {
   const gitInDist = resolve(distDir, '.git');
   if (existsSync(gitInDist)) {
-    Bun.spawnSync(['rm', '-rf', gitInDist]);
+    rmSync(gitInDist, { recursive: true, force: true });
   }
 }
