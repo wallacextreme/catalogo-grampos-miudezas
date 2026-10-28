@@ -8,6 +8,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "bun test",
+    "deploy": "bun run build && bun scripts/deploy-gh-pages.ts",
     "tauri": "tauri"
   },
   "dependencies": {
